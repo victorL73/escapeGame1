@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Énigme des Images Cachées</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+    
+    h1,h3 {
+      text-align: center;
+    }
+    
+    #image-container {
+      position: relative;
+      width: 1024px;
+      height: 768px;
+      margin: 30px auto;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    #hidden-element {
+      position: absolute;
+      top: 20%;
+      left: 20%;
+      width: 60%;
+      height: 60%;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: none;
+    }
+    
+    #image-container:hover #hidden-element {
+      display: block;
+    }
+    
+    #code-input {
+      margin-top: 10px;
+      padding: 10px;
+      width: 200px;
+      font-size: 16px;
+    }
+    
+    #verifier-btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    
+    #resultat {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    
+    #passer-page-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+  <script>
+    // Fonction pour vérifier le code
+    function verifierCode() {
+      var codeInput = document.getElementById("code-input");
+      var code = codeInput.value;
+      var resultatDiv = document.getElementById("resultat");
+      
+      if (code === "30174") {
+        resultatDiv.innerHTML = "Félicitations ! Le code est correct.";
+        document.getElementById("passer-page-btn").style.display = "inline-block";
+      } else {
+        resultatDiv.innerHTML = "Désolé, le code est incorrect. Réessayez.";
+        document.getElementById("passer-page-btn").style.display = "none";
+      }
+      
+      codeInput.value = ""; // Réinitialiser le champ de saisie
+    }
+    
+    function passerPage() {
+      // Remplacez l'URL ci-dessous par l'URL de la page vers laquelle vous souhaitez rediriger
+      window.location.href = "index3.html";
+    }
+  </script>
+</head>
+<body>
+  <h1>Énigme des Images Cachées</h1>
+  <h3>pense à bien noter tout ce que tu récupere</h3>
+  <div id="image-container">
+    <img src="photo_codé.png" alt="Image à explorer">
+  </div>
+  
+  <label for="code-input">Entrez le code :</label>
+  <br>
+  <input type="text" id="code-input" placeholder="Entrez le code">
+  <br>
+  <button id="verifier-btn" onclick="verifierCode()">Vérifier le code</button>
+  
+  <div id="resultat"></div>
+  
+  <button id="passer-page-btn" onclick="passerPage()" style="display: none;">Passer à une autre page</button>
+</body>
+</html>

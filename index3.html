@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Puzzle interactif</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #puzzleBoard {
+            width: 700px;
+            height: 700px;
+            border: 1px solid black;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+        }
+
+        .piece {
+            width: 173px;
+            height: 173px;
+            border: 1px solid black;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .piece img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .piece.empty {
+            background-color: white;
+        }
+
+        .piece-order {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 12px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="puzzleBoard">
+            <div class="piece" id="piece1" onclick="movePiece(1)"><img src="puzzle/00.png" alt="Piece 1"><span class="piece-order">1</span></div>
+            <div class="piece" id="piece2" onclick="movePiece(2)"><img src="puzzle/10.png" alt="Piece 2"><span class="piece-order">2</span></div>
+            <div class="piece" id="piece3" onclick="movePiece(3)"><img src="puzzle/20.png" alt="Piece 3"><span class="piece-order">3</span></div>
+            <div class="piece" id="piece4" onclick="movePiece(4)"><img src="puzzle/30.png" alt="Piece 4"><span class="piece-order">4</span></div>
+            <div class="piece" id="piece5" onclick="movePiece(5)"><img src="puzzle/01.png" alt="Piece 5"><span class="piece-order">5</span></div>
+            <div class="piece" id="piece6" onclick="movePiece(6)"><img src="puzzle/11.png" alt="Piece 6"><span class="piece-order">6</span></div>
+            <div class="piece" id="piece7" onclick="movePiece(7)"><img src="puzzle/21.png" alt="Piece 7"><span class="piece-order">7</span></div>
+            <div class="piece" id="piece8" onclick="movePiece(8)"><img src="puzzle/31.png" alt="Piece 8"><span class="piece-order">8</span></div>
+            <div class="piece" id="piece9" onclick="movePiece(9)"><img src="puzzle/02.png" alt="Piece 9"><span class="piece-order">9</span></div>
+            <div class="piece" id="piece10" onclick="movePiece(10)"><img src="puzzle/12.png" alt="Piece 10"><span class="piece-order">10</span></div>
+            <div class="piece" id="piece11" onclick="movePiece(11)"><img src="puzzle/22.png" alt="Piece 11"><span class="piece-order">11</span></div>
+            <div class="piece" id="piece12" onclick="movePiece(12)"><img src="puzzle/32.png" alt="Piece 12"><span class="piece-order">12</span></div>
+            <div class="piece" id="piece13" onclick="movePiece(13)"><img src="puzzle/03.png" alt="Piece 13"><span class="piece-order">13</span></div>
+            <div class="piece" id="piece14" onclick="movePiece(14)"><img src="puzzle/13.png" alt="Piece 14"><span class="piece-order">14</span></div>
+            <div class="piece" id="piece15" onclick="movePiece(15)"><img src="puzzle/23.png" alt="Piece 15"><span class="piece-order">15</span></div>
+            <div class="piece empty"></div>
+        </div>
+        <button onclick="checkPuzzle()">Vérifier le puzzle</button>
+    </div>
+	<button id="passer-page-btn" onclick="passerPage()" style="display: none;">Passer à une autre page</button>
+    <script>
+        // Mélange les pièces du puzzle au chargement de la page
+        window.onload = function() {
+            shufflePieces();
+        };
+
+        // Mélange les pièces du puzzle
+        function shufflePieces() {
+            var pieces = Array.from(document.getElementsByClassName('piece'));
+            var emptyPiece = pieces.pop();
+
+            pieces.sort(function() {
+                return 0.5 - Math.random();
+            });
+
+            pieces.forEach(function(piece, index) {
+                piece.style.order = index + 1;
+            });
+
+            emptyPiece.style.order = pieces.length + 1;
+        }
+
+        // Vérifie si le puzzle est réussi
+        function checkPuzzle() {
+            var pieces = Array.from(document.getElementsByClassName('piece'));
+            var pieceOrder = pieces.map(function(piece) {
+                return parseInt(piece.style.order);
+            });
+
+            var isSolved = pieceOrder.every(function(order, index) {
+                return index + 1 === order;
+            });
+
+            if (isSolved) {
+                alert('Bravo, le puzzle est réussi!');
+				document.getElementById("passer-page-btn").style.display = "inline-block";
+            } else {
+                alert('Le puzzle n\'est pas encore résolu.');
+				document.getElementById("passer-page-btn").style.display = "none";
+            }
+        }
+
+        // Déplace la pièce du puzzle
+        function movePiece(pieceNumber) {
+            var emptyPiece = document.querySelector('.empty');
+            var targetPiece = document.getElementById('piece' + pieceNumber);
+
+            var emptyPieceOrder = emptyPiece.style.order;
+            var targetPieceOrder = targetPiece.style.order;
+
+            emptyPiece.style.order = targetPieceOrder;
+            targetPiece.style.order = emptyPieceOrder;
+        }
+		function passerPage() {
+      // Remplacez l'URL ci-dessous par l'URL de la page vers laquelle vous souhaitez rediriger
+      window.location.href = "Collège Sainte Marie (Ste Marie).htm";
+	  }
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Énigme du Code Secret</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    #code-secret {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 18px;
+    }
+    
+    #images-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    
+    #images-container img {
+      margin: 10px;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    #reponse-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+    
+    #reponse-input {
+      margin-top: 10px;
+      padding: 10px;
+      width: 200px;
+      font-size: 16px;
+    }
+    
+    #valider-btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    
+    #resultat {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    
+    #passer-page-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+  <script>
+    // Définition du code secret
+    var codeSecret = "WRHQV";
+
+    // Fonction de décodage
+    function decoderCode(secret) {
+      var decoded = "";
+      
+      for (var i = 0; i < secret.length; i++) {
+        var charCode = secret.charCodeAt(i);
+        var decodedCharCode = charCode - 13; // Décalage de 13 positions dans l'alphabet
+        
+        // Vérification des limites de l'alphabet
+        if (decodedCharCode < 65) {
+          decodedCharCode += 26;
+        }
+        
+        decoded += String.fromCharCode(decodedCharCode);
+      }
+      
+      return decoded;
+    }
+    
+    // Fonction pour vérifier la réponse
+    function verifierReponse() {
+      var reponseInput = document.getElementById("reponse-input");
+      var reponse = reponseInput.value.toUpperCase(); // Convertir en majuscules pour la comparaison
+      
+      var codeDecoded = decoderCode(codeSecret);
+      var resultatDiv = document.getElementById("resultat");
+      
+      if (reponse === codeDecoded) {
+        resultatDiv.innerHTML = "Félicitations ! La réponse est correcte.";
+        document.getElementById("passer-page-btn").style.display = "inline-block";
+      } else {
+        resultatDiv.innerHTML = "Désolé, la réponse est incorrecte. Réessayez.";
+        document.getElementById("passer-page-btn").style.display = "none";
+      }
+    }
+    
+    // Fonction pour passer à une autre page
+    function passerPage() {
+      // Remplacez l'URL ci-dessous par l'URL de la page vers laquelle vous souhaitez rediriger
+      window.location.href = "index2.html";
+    }
+    
+    // Afficher le code secret à déchiffrer
+    window.onload = function() {
+      var codeSecretDiv = document.getElementById("code-secret");
+      codeSecretDiv.innerHTML = "Code secret à déchiffrer : " ;//+ codeSecret;
+    };
+  </script>
+</head>
+<body>
+  <h1>Énigme du Code Secret</h1>
+  
+  <div id="code-secret"></div>
+  
+  <div id="images-container">
+    <img src="code_morse_boum.png" alt="Code Morse Boum" width="300" height="200">
+    <img src="morse.png" alt="Tableau du code Morse" width="600" height="800">
+    <img src="code2.PNG" alt="Code 2" width="1300" height="100">
+  </div>
+  
+  <div id="reponse-container">
+    <h2>Texte 2 à déchiffrer : GETMF</h2>
+    <label for="reponse-input">Entrez votre réponse :</label>
+    <br>
+    <input type="text" id="reponse-input" placeholder="Entrez la réponse">
+    <br>
+    <button id="valider-btn" onclick="verifierReponse()">Valider</button>
+  </div>
+  
+  <div id="resultat"></div>
+  
+  <button id="passer-page-btn" onclick="passerPage()" style="display: none;">Passer à une autre page</button>
+</body>
+</html>
